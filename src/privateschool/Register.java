@@ -3,24 +3,28 @@ package privateschool;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import models.Assignment;
+import models.AssignmentData;
 import models.Course;
+import models.CourseData;
+import models.Database;
 import models.Student;
+import models.StudentData;
 import models.Trainer;
+import models.TrainerData;
+import models.TrainersCourses;
 import static privateschool.Check.getCourseStream;
 import static privateschool.Check.getCourseType;
 import static privateschool.Check.getDate;
 import static privateschool.Check.getDateOneMonthFrom;
 import static privateschool.Check.getIntFromTo;
-import static privateschool.Check.getSubDateTime;
 import static privateschool.Check.isInputYes;
 import static privateschool.MainClass.courses;
 import static privateschool.MainClass.scanner;
-import static privateschool.Menu.mainMenu;
 import static privateschool.Print.printList;
 
-
 public class Register {
-    static void regCourse(DateTimeFormatter formatter) {
+
+    static void course(DateTimeFormatter formatter) {
         do {
             System.out.print("Enter a course title:");
             String title = scanner.next();
@@ -30,11 +34,12 @@ public class Register {
             LocalDate start_date = getDate("course start", formatter);
             LocalDate end_date = getDateOneMonthFrom(start_date, "course end", formatter);
             Course c1 = new Course(title, stream, type, start_date, end_date);
+            CourseData.insert(c1);
             System.out.print("Do you want to register another course? (y/n):");
         } while (isInputYes());
     }
 
-    static void regTrainer(DateTimeFormatter formatter) {
+    static void trainer(DateTimeFormatter formatter) {
         do {
             System.out.print("Enter the trainer's first name:");
             String firstName = scanner.next();
@@ -43,26 +48,31 @@ public class Register {
             System.out.print("Enter the trainer's subject:");
             String subject = scanner.next();
             Trainer t1 = new Trainer(firstName, lastName, subject);
-            addCoursesToTrainer(t1);
+//            addCoursesToTrainer(t1);
+            TrainerData.insert(t1);
+//            int id = TrainerData.getID(t1);
+//            TrainersCourses.trainerToCourse(id);
             System.out.print("Do you want to register another trainer? (y/n):");
         } while (isInputYes());
     }
 
-    static void regAssignment(DateTimeFormatter formatter) {
+    static void assignment(DateTimeFormatter formatter) {
         do {
             System.out.print("Enter assignment title:");
             String title = scanner.next();
             System.out.print("Enter assignment description:");
             String description = scanner.next();
             Assignment a1 = new Assignment(title, description);
-            Course course = addCoursesToAssignment(a1);
-            LocalDate subDatetime = getSubDateTime(course);
+//            Course course = addCoursesToAssignment(a1);
+//            LocalDate subDatetime = getSubDateTime(course);
+            LocalDate subDatetime = getDate("submission date", formatter);
             a1.setSubDateTime(subDatetime);
+            AssignmentData.insert(a1);
             System.out.print("Do you want to register another assignment? (y/n):");
         } while (isInputYes());
     }
 
-    static void regStudent(DateTimeFormatter formatter) {
+    static void student(DateTimeFormatter formatter) {
         do {
             System.out.print("Enter the student's first name:");
             String firstName = scanner.next();
@@ -70,12 +80,13 @@ public class Register {
             String lastName = scanner.next();
             LocalDate dateOfBirth = getDate("birth date", formatter);
             Student s1 = new Student(firstName, lastName, dateOfBirth);
-            addCoursesToStudent(s1);
+//            addCoursesToStudent(s1);
+            StudentData.insert(s1);
             System.out.print("Do you want to register another student? (y/n):");
         } while (isInputYes());
-        mainMenu();
     }
-        static Course addCoursesToAssignment(Assignment assignment) {
+
+    static Course addCoursesToAssignment(Assignment assignment) {
         Course course;
         do {
             System.out.println("Which course is the assignment for?");

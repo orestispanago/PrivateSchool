@@ -36,6 +36,10 @@ public class Trainer {
         this.lastName = lastName;
     }
 
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
     public List<Course> getCourses() {
         return courses;
     }
@@ -50,6 +54,10 @@ public class Trainer {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public String getSubject() {
+        return subject;
     }
 
     @Override

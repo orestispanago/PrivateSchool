@@ -78,7 +78,11 @@ public class Course {
     }
 
     public String getStart_dateString() {
-        return start_date.format(MainClass.formatter);
+        return start_date.format(MainClass.formatterGreek);
+    }
+
+    public String getStart_dateStringSQL() {
+        return start_date.format(MainClass.formatterSQL);
     }
 
     public LocalDate getEnd_date() {
@@ -86,7 +90,11 @@ public class Course {
     }
 
     public String getEnd_dateString() {
-        return end_date.format(MainClass.formatter);
+        return end_date.format(MainClass.formatterGreek);
+    }
+
+    public String getEnd_dateStringSQL() {
+        return end_date.format(MainClass.formatterSQL);
     }
 
     public void setTitle(String title) {

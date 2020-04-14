@@ -79,16 +79,18 @@ public class Student {
         return dateOfBirth;
     }
 
-    public String getDateOfBirthString() {
-        return dateOfBirth.format(MainClass.formatter);
+    public String getDateOfBirthStringGreek() {
+        return dateOfBirth.format(MainClass.formatterGreek);
     }
-
+    public String getDateOfBirthStringSQL() {
+        return dateOfBirth.format(MainClass.formatterSQL);
+    }
     public double getTuitionFees() {
         return tuitionFees;
     }
 
     @Override
     public String toString() {
-        return String.format("Student: %-10s %-12s %s\n", firstName, lastName, getDateOfBirthString());
+        return String.format("Student: %-10s %-12s %s\n", firstName, lastName, getDateOfBirthStringGreek());
     }
 }

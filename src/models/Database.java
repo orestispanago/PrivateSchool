@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package models;
 
 import java.sql.Connection;
@@ -13,11 +8,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import privateschool.MainClass;
+import static privateschool.MainClass.db;
 
-/**
- *
- * @author mac
- */
 public class Database {
 
     private static final String DB_URL = "localhost:3306";
@@ -32,10 +25,6 @@ public class Database {
         getConnection();
     }
 
-//    public static Connection getConnection2() throws SQLException {
-//        connection = DriverManager.getConnection(FULL_DB_URL, DB_USER, DB_PASSWD);
-//        return connection;
-//    }
     public static Connection getConnection() {
         try {
             connection = DriverManager.getConnection(FULL_DB_URL, DB_USER, DB_PASSWD);
@@ -70,9 +59,7 @@ public class Database {
     }
 
     public static ResultSet getOneResultByField(String tableName, String fieldName, String fieldValue) {
-        // parameter table
-        // parameter fieldName
-        // parameter fieldValue
+
         try {
             setStatement();
             String query = "SELECT * FROM `" + tableName + "` WHERE `" + fieldName + "`=" + fieldValue;
@@ -83,6 +70,31 @@ public class Database {
             return null;
         }
 
+    }
+
+    public static int deleteFrom(String tablename) {
+        int result = 0;
+        String query = "DELETE FROM " + tablename + ";";
+        db.setStatementNonStatic();
+        Statement st = db.getStatementNonStatic();
+        try {
+            result = st.executeUpdate(query);
+            return result;
+        } catch (SQLException ex) {
+            Logger.getLogger(MainClass.class.getName()).log(Level.SEVERE, null, ex);
+            return result;
+        }
+
+    }
+
+    public static void deleteAll() {
+        deleteFrom("assignments_courses");
+        deleteFrom("students_courses");
+        deleteFrom("trainers_courses");
+        deleteFrom("trainers");
+        deleteFrom("courses");
+        deleteFrom("students");
+        deleteFrom("assignments");
     }
 
     public static Statement getStatement() {
@@ -132,5 +144,8 @@ public class Database {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+
+
 
 }

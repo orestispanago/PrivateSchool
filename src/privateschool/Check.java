@@ -3,7 +3,7 @@ package privateschool;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import models.Course;
-import static privateschool.MainClass.formatter;
+import static privateschool.MainClass.formatterGreek;
 import static privateschool.MainClass.scanner;
 
 
@@ -50,6 +50,8 @@ public class Check {
         }
         return "full-time";
     }
+
+
 
     static int getIntFromTo(int from, int to) {
         int num;
@@ -98,17 +100,17 @@ public class Check {
     }
 
     static LocalDate getSubDateTime(Course course) {
-        LocalDate subDateTime = getDate("submission", formatter);
+        LocalDate subDateTime = getDate("submission", formatterGreek);
         LocalDate courseStart = course.getStart_date();
         LocalDate courseEnd = course.getEnd_date();
         String courseStartString = course.getStart_dateString();
         String courseEndString = course.getEnd_dateString();
         while (subDateTime.isBefore(courseStart) || subDateTime.isAfter(courseEnd)) {
             System.out.printf("Please enter a date between %s and %s.\n", courseStartString, courseEndString);
-            subDateTime = getDate("submission", formatter);
+            subDateTime = getDate("submission", formatterGreek);
             while (!isWorkDay(subDateTime)) {
                 System.out.println("Assignments cannot be submitted at weekend, please enter a work day.");
-                subDateTime = getDate("submission", formatter);
+                subDateTime = getDate("submission", formatterGreek);
             }
         }
         return subDateTime;

@@ -10,23 +10,25 @@ import static privateschool.MainClass.dashes;
 import static privateschool.MainClass.db;
 import static privateschool.MainClass.equalsigns;
 
-public class AssignmentData {
+public class CourseData {
+//    Database db = new Database();
 
     private static ResultSet getAll() {
-        return Database.getResults("SELECT * FROM assignments ORDER BY id");
+        return Database.getResults("SELECT * FROM courses ORDER BY id");
     }
 
     public static void printAll() {
         ResultSet rs = getAll();
         try {
             System.out.println(dashes);
-            String stringFormat = "|%-5s|%-20s|%-20s|%-10s|%-10s|\n";
+            String stringFormat = "|%-5s|%-20s|%-10s|%-14s|%-12s|%-12s|\n";
             String header = String.format(stringFormat,
                     "ID",
                     "Title",
-                    "Description",
-                    "Submission datetime",
-                    "Tot mark");
+                    "Stream",
+                    "Type",
+                    "Start date",
+                    "End date");
             System.out.print(header);
             System.out.println(equalsigns);
             while (rs.next()) {
@@ -35,7 +37,8 @@ public class AssignmentData {
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
-                        rs.getString(5));
+                        rs.getString(5),
+                        rs.getString(6));
             }
             System.out.println(dashes);
         } catch (SQLException ex) {
@@ -43,17 +46,21 @@ public class AssignmentData {
         }
     }
 
-    public static int insert(Assignment assignment) {
+    public static int insert(Course course) {
         int result = 0;
         String sql = String.format(
-                "INSERT INTO `assignments` ("
+                "INSERT INTO `courses` ("
                 + "`title`, "
-                + "`description`, "
-                + "`submission_datetime`) "
-                + "VALUES ('%s', '%s', '%s');",
-                assignment.getTitle(),
-                assignment.getDescription(),
-                assignment.getSubDateTimeStringSQL());
+                + "`stream`, "
+                + "`type`,"
+                + "`start_date`,"
+                + "`end_date`) "
+                + "VALUES ('%s', '%s', '%s', '%s', '%s');",
+                course.getTitle(),
+                course.getStream(),
+                course.getType(),
+                course.getStart_dateStringSQL(),
+                course.getEnd_dateStringSQL());
         db.setStatementNonStatic();
         Statement st = db.getStatementNonStatic();
         try {
@@ -65,7 +72,4 @@ public class AssignmentData {
         }
 
     }
-
-
-
 }

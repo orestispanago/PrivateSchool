@@ -10,23 +10,25 @@ import static privateschool.MainClass.dashes;
 import static privateschool.MainClass.db;
 import static privateschool.MainClass.equalsigns;
 
-public class AssignmentData {
+public class StudentData {
+//    Database db = new Database();
 
-    private static ResultSet getAll() {
-        return Database.getResults("SELECT * FROM assignments ORDER BY id");
+    private static ResultSet getAll() { 
+        return Database.getResults("SELECT * FROM students ORDER BY id");
     }
 
     public static void printAll() {
         ResultSet rs = getAll();
         try {
+
             System.out.println(dashes);
-            String stringFormat = "|%-5s|%-20s|%-20s|%-10s|%-10s|\n";
+            String stringFormat = "|%-5s|%-20s|%-29s|%-15s|%-5s|\n";
             String header = String.format(stringFormat,
                     "ID",
-                    "Title",
-                    "Description",
-                    "Submission datetime",
-                    "Tot mark");
+                    "First name",
+                    "Last Name",
+                    "Date of Birth",
+                    "fees");
             System.out.print(header);
             System.out.println(equalsigns);
             while (rs.next()) {
@@ -43,17 +45,17 @@ public class AssignmentData {
         }
     }
 
-    public static int insert(Assignment assignment) {
+    public static int insert(Student student) {
         int result = 0;
         String sql = String.format(
-                "INSERT INTO `assignments` ("
-                + "`title`, "
-                + "`description`, "
-                + "`submission_datetime`) "
+                "INSERT INTO `students` ("
+                + "`first_name`, "
+                + "`last_name`, "
+                + "`date_of_birth`) "
                 + "VALUES ('%s', '%s', '%s');",
-                assignment.getTitle(),
-                assignment.getDescription(),
-                assignment.getSubDateTimeStringSQL());
+                student.getFirstName(),
+                student.getLastName(),
+                student.getDateOfBirth());
         db.setStatementNonStatic();
         Statement st = db.getStatementNonStatic();
         try {
@@ -65,7 +67,4 @@ public class AssignmentData {
         }
 
     }
-
-
-
 }

@@ -72,8 +72,11 @@ public Assignment(String title, String description,LocalDate subDateTime){
         return subDateTime;
     }
 
-    public String getSubDateTimeString() {
-        return subDateTime.format(MainClass.formatter);
+    public String getSubDateTimeStringGreek() {
+        return subDateTime.format(MainClass.formatterGreek);
+    }
+    public String getSubDateTimeStringSQL() {
+        return subDateTime.format(MainClass.formatterSQL);
     }
 
     public int getOralMark() {
@@ -87,6 +90,6 @@ public Assignment(String title, String description,LocalDate subDateTime){
     @Override
     public String toString() {
         return String.format("Assignment: %-7s %-12s %s\n", title,
-                description, getSubDateTimeString());
+                description, getSubDateTimeStringGreek());
     }
 }

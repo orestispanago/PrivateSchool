@@ -1,25 +1,33 @@
 package privateschool;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import models.AssignmentData;
+import models.AssignmentsCourses;
+import models.CourseData;
+import models.StudentData;
+import models.StudentsCourses;
+import models.TrainerData;
+import models.TrainersCourses;
 import static privateschool.Check.getIntFromTo;
-import static privateschool.MainClass.assignments;
-import static privateschool.MainClass.courses;
-import static privateschool.MainClass.formatter;
-import static privateschool.MainClass.inspectMenuOptions;
-import static privateschool.MainClass.students;
-import static privateschool.MainClass.trainers;
-import static privateschool.Print.printAssignmentsPerCourse;
-import static privateschool.Print.printAssignmentsPerStudent;
+import static privateschool.MainClass.formatterGreek;
 import static privateschool.Print.printList;
-import static privateschool.Print.printStudentsMoreThanOneCourse;
-import static privateschool.Print.printStudentsPerCourse;
-import static privateschool.Print.printTrainersPerCourse;
-import static privateschool.Register.regAssignment;
-import static privateschool.Register.regCourse;
-import static privateschool.Register.regStudent;
-import static privateschool.Register.regTrainer;
-
 
 public class Menu {
+
+    public static List<String> inspectMenuOptions = new ArrayList(Arrays.asList(
+            "Students\n",//
+            "Trainers\n",//
+            "Assignments\n",//
+            "Courses\n",//
+            "Students per course\n",//
+            "Trainers per course\n",//
+            "Assignments per course\n",//
+            "Assignments per student\n",//
+            "Students that belong to more than one courses\n",
+            "Return to main menu\n"));//
+
     public static void mainMenu() {
         System.out.println("What would you like to do?");
         System.out.println("1.Insert some data");
@@ -28,10 +36,10 @@ public class Menu {
         int mainMenuChoice = getIntFromTo(1, 3);
         switch (mainMenuChoice) {
             case 1:
-                regCourse(formatter);
-                regTrainer(formatter);
-                regAssignment(formatter);
-                regStudent(formatter);
+                Register.course(formatterGreek);
+                Register.trainer(formatterGreek);
+                Register.assignment(formatterGreek);
+                Register.student(formatterGreek);
                 break;
             case 2:
                 inspectDataMenu();
@@ -43,50 +51,50 @@ public class Menu {
     }
 
     static void inspectDataMenu() {
-        if (!students.isEmpty()) {
-            System.out.println("You can view the following lists:");
-            printList(inspectMenuOptions);
-            int choice = getIntFromTo(1, inspectMenuOptions.size());
-            switch (choice) {
-                case 1:
-                    printList(students);
-                    inspectDataMenu();
-                    break;
-                case 2:
-                    printList(trainers);
-                    inspectDataMenu();
-                    break;
-                case 3:
-                    printList(assignments);
-                    inspectDataMenu();
-                    break;
-                case 4:
-                    printList(courses);
-                    inspectDataMenu();
-                    break;
-                case 5:
-                    printStudentsPerCourse();
-                    inspectDataMenu();
-                    break;
-                case 6:
-                    printTrainersPerCourse();
-                    inspectDataMenu();
-                    break;
-                case 7:
-                    printAssignmentsPerCourse();
-                    inspectDataMenu();
-                    break;
-                case 8:
-                    printAssignmentsPerStudent();
-                    inspectDataMenu();
-                case 9:
-                    printStudentsMoreThanOneCourse();
-                    inspectDataMenu();
-                case 10:
-                    break;
-            }
-        } else {
-            System.out.println("No data found, please enter some from the main menu.");
+        System.out.println("You can view the following lists:");
+        printList(inspectMenuOptions);
+        int choice = getIntFromTo(1, inspectMenuOptions.size());
+        switch (choice) {
+            case 1:
+                StudentData.printAll();
+                inspectDataMenu();
+                break;
+            case 2:
+                TrainerData.printAll();
+                inspectDataMenu();
+                break;
+            case 3:
+                AssignmentData.printAll();
+                inspectDataMenu();
+                break;
+            case 4:
+                CourseData.printAll();
+                inspectDataMenu();
+                break;
+            case 5:
+                CourseData.printAll();
+                StudentsCourses.printStudentsPerCourse();
+                inspectDataMenu();
+                break;
+            case 6:
+                CourseData.printAll();
+                TrainersCourses.printTrainersPerCourse();
+                inspectDataMenu();
+                break;
+            case 7:
+                CourseData.printAll();
+                AssignmentsCourses.printAssignmentsPerCourse();
+                inspectDataMenu();
+                break;
+            case 8:
+                StudentData.printAll();
+                AssignmentsCourses.printAssignmentsPerCoursePerStudent();
+                inspectDataMenu();
+            case 9:
+                StudentsCourses.printStudentsMoreThanOneCourse();
+                inspectDataMenu();
+            case 10:
+                break;
         }
         mainMenu();
     }
