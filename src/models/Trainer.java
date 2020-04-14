@@ -1,7 +1,9 @@
-package privateschool;
+package models;
 
+import models.Course;
 import java.util.ArrayList;
 import java.util.List;
+import privateschool.MainClass;
 
 public class Trainer {
 

@@ -1,8 +1,11 @@
-package privateschool;
+package models;
 
+import models.Course;
+import models.Assignment;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import privateschool.MainClass;
 
 public class Student {
 

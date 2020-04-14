@@ -1,8 +1,10 @@
-package privateschool;
+package models;
 
+import models.Assignment;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import privateschool.MainClass;
 
 public class Course {
 
@@ -111,5 +113,6 @@ public class Course {
     public String toString() {
         return String.format("Course: %-7s %-12s %s %s to %s\n", title,
                 stream, type, getStart_dateString(), getEnd_dateString());
+
     }
 }

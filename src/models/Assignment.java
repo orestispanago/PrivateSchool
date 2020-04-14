@@ -1,8 +1,9 @@
-package privateschool;
+package models;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import privateschool.MainClass;
 
 public class Assignment {
 
